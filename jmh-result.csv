@@ -1,0 +1,9 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit","Param: variance"
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,1599.165786,39.021864,"ops/s",0
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,568.077005,7.395142,"ops/s",10
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,348.707848,7.773979,"ops/s",100
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,301.845535,5.777430,"ops/s",200
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,274.948474,7.353230,"ops/s",400
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,254.987070,11.674085,"ops/s",800
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,255.318420,3.316494,"ops/s",1600
+"org.sample.MyBenchmark.testMethod","thrpt",1,15,242.181001,6.684055,"ops/s",3000
