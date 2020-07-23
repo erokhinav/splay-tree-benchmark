@@ -8,36 +8,31 @@ import org.openjdk.jmh.annotations.Setup
 import org.openjdk.jmh.annotations.State
 import org.openjdk.jmh.annotations.Warmup
 import org.openjdk.jmh.infra.Blackhole
-import java.util.*
 
 @Fork(value = 3) @Warmup(iterations = 3)
 @State(Scope.Thread)
-open class MyBenchmark {
-    lateinit var random: Random
+class BenchmarkGaussianDeclarative {
+    lateinit var scenario: Array<Any>
 
     @Param("0", "10", "100", "200", "400", "800", "1600", "3000")
-    var variance: Int = 0
+    var varianceGaussian: Int = 0
 
     @Setup
     fun setup() {
-        random = Random()
+        val context = Context()
+        context.mean = 1000
+        context.varianceGaussian = varianceGaussian
+        scenario = Utils.genScenario(Distribution.GAUSSIAN, context)
     }
 
     @Benchmark
-    fun testMethod(blackhole: Blackhole) {
-        val tree: SplayTree? = SplayTree(Node(4))
-        val ops = 10000
-        repeat(ops) {
-            val key = genDist(1000, variance)
-            when(random.nextInt(2)) {
-                0 -> tree?.add(key)
-                1 -> tree?.find(key)
+    fun testMethodGaussian(blackhole: Blackhole) {
+        val tree = SplayTree<Int>()
+        for (key in scenario) {
+            if (key is Int) {
+                tree.add(key)
             }
             blackhole.consume(tree)
         }
-    }
-
-    private fun genDist(mean: Int, variance: Int): Int {
-        return Math.round(mean + random.nextGaussian() * variance).toInt()
     }
 }

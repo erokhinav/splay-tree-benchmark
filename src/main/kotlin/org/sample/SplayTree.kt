@@ -1,8 +1,8 @@
 package org.sample
 
-class SplayTree(var root: Node?) {
+class SplayTree<T >(var root: Node<T>? = null) where T : Comparable<T>{
 
-    fun find(value: Int): Node? {
+    fun find(value: T): Node<T>? {
         if (root == null) return null
 
         var found = root
@@ -22,7 +22,7 @@ class SplayTree(var root: Node?) {
         return found
     }
 
-    fun add(value: Int) {
+    fun add(value: T) {
         val node = Node(value)
 
         if (root == null) {
@@ -40,12 +40,12 @@ class SplayTree(var root: Node?) {
         root = node
     }
 
-    fun remove(value: Int) {
+    fun remove(value: T) {
         val found = find(value)
         root = merge(found?.left, found?.right)
     }
 
-    private fun merge(tree1: Node?, tree2: Node?): Node? {
+    private fun merge(tree1: Node<T>?, tree2: Node<T>?): Node<T>? {
         if (tree1 == null) return tree2
         if (tree2 == null) return tree1
 
@@ -59,7 +59,7 @@ class SplayTree(var root: Node?) {
         return r
     }
 
-    private fun split(x: Int): Pair<Node?, Node?> {
+    private fun split(x: T): Pair<Node<T>?, Node<T>?> {
         val found = find(x)
         return if (found!!.key > x) {
             val l = found.left
@@ -74,16 +74,15 @@ class SplayTree(var root: Node?) {
         }
     }
 
-    private fun p(v: Node): Node? {
+    private fun p(v: Node<T>): Node<T>? {
         return v.parent
     }
 
-    private fun g(v: Node): Node? {
-        v.parent?.let { par -> return par.parent }
-        return null
+    private fun g(v: Node<T>): Node<T>? {
+        v.parent.let { par -> return par?.parent }
     }
 
-    private fun splay(v: Node) {
+    private fun splay(v: Node<T>) {
         while (p(v) != null) {
             if (v == p(v)!!.left) {
                 when {
@@ -117,7 +116,7 @@ class SplayTree(var root: Node?) {
         }
     }
 
-    private fun rotate_left(v: Node) {
+    private fun rotate_left(v: Node<T>) {
         val p = p(v)
         val r = v.right
         p?.let {
@@ -137,7 +136,7 @@ class SplayTree(var root: Node?) {
         }
     }
 
-    private fun rotate_right(v: Node) {
+    private fun rotate_right(v: Node<T>) {
         val p = p(v)
         val l = v.left
         p?.let {

@@ -1,6 +1,6 @@
 package org.sample
 
-class Node(var key: Int,
-        var parent: Node? = null,
-        var left: Node? = null,
-        var right: Node? = null)
+class Node<T>(var key: T,
+        var parent: Node<T>? = null,
+        var left: Node<T>? = null,
+        var right: Node<T>? = null)
